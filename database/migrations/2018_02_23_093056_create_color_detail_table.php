@@ -15,9 +15,9 @@ class CreateColorDetailTable extends Migration
     {
         Schema::create('color_detail', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('color_id');
-            $table->foreign('color_id')->references('id')->on('color')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('lang_id');
+            $table->integer('color_id')->unsigned();
+            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('lang_id')->unsigned();
             $table->foreign('lang_id')->references('id')->on('lang')->onDelete('cascade')->onUpdate('cascade');
             $table->string('Name');
             $table->timestamps();

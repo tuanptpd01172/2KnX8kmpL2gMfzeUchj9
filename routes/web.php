@@ -37,4 +37,12 @@ Route::group(['middleware'=>'locale'],function (){
 	    return view('admin.test');
 	   
 	})->name('test');
+
+	/**
+	 * Restful post
+	 */
+	Route::resource('/post','Post\PostController');
+	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
+
+
 });

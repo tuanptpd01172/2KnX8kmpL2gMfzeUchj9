@@ -15,6 +15,12 @@ class CreateCategoriesDetailTable extends Migration
     {
         Schema::create('categories_detail', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('categories_id')->unsigned();
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('lang_id')->unsigned();
+            $table->foreign('lang_id')->references('id')->on('lang')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('Name')->nullable();
+
             $table->timestamps();
         });
     }
