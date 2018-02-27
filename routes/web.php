@@ -14,6 +14,7 @@
 
 /*middeware lang*/
 Route::group(['middleware'=>'locale'],function (){
+	
 	Route::get('/', function () {
 	    return view('welcome');
 	});
