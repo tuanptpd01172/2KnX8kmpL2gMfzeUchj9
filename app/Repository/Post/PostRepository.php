@@ -4,7 +4,7 @@
 	use App\Repository\Post\PostInterface;
 	
 	
-	
+	use Session;
 
 /**
 * 
@@ -22,7 +22,39 @@ class PostRepository implements PostInterface
 	}
 
 	public function getAll($data=null)
-	{
+	{	
+		$GLOBALS['locale'] = 'vi';
+		if(Session::has('Locale')){
+			$GLOBALS['locale'] = Session::get('Locale');
+		}
+		if(isset($data) && $data != null){
+			$status = 1;
+			if(isset($data->Status) && $data->Status != "" ){
+				$status = $data->Status ;
+			}
+
+			$result =   $this->model->with(['post_detail'=>function (){
+
+			}])
+									->where('Status',$status);
+
+			if(isset($data->categories_id) && $data->categories_id != "" ){
+				$result->where('categories_id',$data->categories_id);
+			}
+			
+
+			if(isset($data->user_id) && $data->user_id != "" ){
+				$result->where('user_id',$data->user_id);
+			}
+
+			if(isset($data->View) && $data->View != "" ){
+				$result->where('View',$data->View);
+			}
+
+
+			$result->get();
+			return $result;
+		}
 		return $this->model->all();
 	}
 

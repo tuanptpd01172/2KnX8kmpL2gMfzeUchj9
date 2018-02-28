@@ -26,6 +26,7 @@ Route::group(['middleware'=>'locale'],function (){
 	    
 	    return view('admin.test');
 	});
+	/*choose language*/
 	Route::get('/change-lang/{locale?}', function ($locale) {
 	    Session::put('locale',$locale);
 	    return Redirect::route('test');
@@ -42,6 +43,8 @@ Route::group(['middleware'=>'locale'],function (){
 	 * Restful post
 	 */
 	Route::resource('/post','Post\PostController');
+
+	/*Post detail */
 	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
 
 
