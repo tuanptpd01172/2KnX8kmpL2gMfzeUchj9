@@ -1,22 +1,34 @@
 <?php
 	namespace App\Repository\Post;
 	use App\Model\Post\Post;
+	use App\Model\Post\Post_Detail;
 	use App\Repository\Post\PostInterface;
-	
+	use App\Repository\Post\Post_DetailRepository;
+	use App\Repository\Categories\CategoriesInterface;
+	use App\Repository\Color\ColorInterface;
+	use Illuminate\Http\Request;
 	
 	use Session;
-
+	use Image;
+	use Helper;
+	use File;
 /**
 * 
 */
 class PostRepository implements PostInterface
 {
 	protected $model;
+	protected $post_detail;
+	protected $color;
+	protected $category;
 	
-	public function __construct(Post $Post)
+	public function __construct(Post $Post,Post_DetailRepository $Post_DetailRepository,CategoriesInterface $CategoriesInterface,ColorInterface $ColorInterface)
 	{
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 		$this->model = $Post;
+		$this->post_detail = $Post_DetailRepository;
+		$this->category = $CategoriesInterface;
+		$this->color = $ColorInterface;
 		
 		
 	}
@@ -117,60 +129,91 @@ class PostRepository implements PostInterface
 		return $this->model->find($id);
 	}
 	/**
-	 * Thêm Học Phí 
+	 * New Post
 	 * @param  [type] $attribute [description]
 	 * @return [type]            [description]
 	 */
 	public function postInsert($attribute)
 	{
-		 $this->model->Nam=$attribute->Nam;
-		 $this->model->Thang=$attribute->Thang;
-		 $this->model->So_Ngay="26";//$attribute->So_Ngay;
-		 $this->model->Tien_Hoc_Phi=$attribute->Tien_Hoc_Phi;
-		 $this->model->Tien_Hoc_Phi_Toi=$attribute->Tien_Hoc_Phi_Toi;
-		 $this->model->Tien_An_Sang=$attribute->Tien_An_Sang;
-		 $this->model->Tien_An_Toi=$attribute->Tien_An_Toi;
-		 $this->model->Sua_Sang=0;//$attribute->Sua_Sang;
-		 $this->model->Sua_Toi=0;//$attribute->Sua_Toi;
-		 $this->model->Ban_Tru=$attribute->Ban_Tru;
-		 $this->model->Nang_Khieu=$attribute->Nang_Khieu;
-		 $this->model->Phuc_Vu_Ban_Tru=$attribute->Phuc_Vu_Ban_Tru;
-		
+		if ($attribute->hasFile('Avatar')) {
+	        $image = $attribute->file('Avatar');
+	        $filename = $attribute->Slug.'-'.time() . '.' . $image->getClientOriginalExtension();
+	        $path = public_path('upload/post/' . $filename);
+	        $path1 = public_path('upload/thumbnail/' . $filename);
+	        Image::make($image->getRealPath())->save($path);
+	        
+	        Image::make($image->getRealPath())->resize(200, 200)->save($path1);
+	        $this->model->Avatar=$filename;
+	    }
 
+		 $this->model->Slug=$attribute->Slug;
+		 $this->model->user_id=1;//$attribute->user_id;
+		 $this->model->categories_id=$attribute->categories_id;
+		 $this->model->color_id=$attribute->color_id;
+		 $this->model->Status=$attribute->Status;
+		 $this->model->View=0;
 
-		 
-		 $this->model->chinhanh_id=$attribute->chinhanh_id;
-		 $this->model->khoi_id=$attribute->khoi_id;
-		 $this->model->lop_id=$attribute->lop_id;
-		
 
 
 		 $this->model->save();
-		 return $this->model->id;
+		 $id = $this->model->id;
+		 /**
+		  * [$post_vi description vietnamese]
+		  * @var Post_DetailRepository
+		  */
+		 $post_vi = new Post_Detail;
+		 $post_vi->post_id = $id;
+		 $post_vi->Title = $attribute->Title_vi;
+		 $post_vi->Price = $attribute->Price_vi;
+		 $post_vi->lang_id =1;
+		 $post_vi->Descriptions = $attribute->Description_vi;
+		 $post_vi->save();
+		 $vi = $post_vi->id;
+		 /**
+		  * [$post_vi description english]
+		  * @var Post_DetailRepository
+		  */
+		 if(isset($attribute->Title_en) && $attribute->Title_en != null){
+
+			 $post_en = new Post_Detail;
+			 $post_en->post_id = $id;
+			 $post_en->Title = $attribute->Title_en;
+			 $post_en->Price = $attribute->Price_en;
+			 $post_en->lang_id =2;
+			 $post_en->Descriptions = $attribute->Description_en;
+			 $post_en->save();
+			 $en = $post_en->id;
+		 }
+
+
+		 return ['post_id'=>$id,'post_detail_vi'=>$vi,'post_detail_en'=>$en];
 	}
 
 	
 	public function putUpdate($attribute,$id)
 	{
-		$abc = $this->model->find($id);
-		 $abc->Nam=$attribute->Nam;
-		 $abc->Thang=$attribute->Thang;
-		 $abc->So_Ngay="26";//$attribute->So_Ngay;
-		 $abc->Tien_Hoc_Phi=$attribute->Tien_Hoc_Phi;
-		 $abc->Tien_Hoc_Phi_Toi=$attribute->Tien_Hoc_Phi_Toi;
-		 $abc->Tien_An_Sang=$attribute->Tien_An_Sang;
-		 $abc->Tien_An_Toi=$attribute->Tien_An_Toi;
-		 $abc->Sua_Sang=0;//$attribute->Sua_Sang;
-		 $abc->Sua_Toi=0;//$attribute->Sua_Toi;
-		 $abc->Ban_Tru=$attribute->Ban_Tru;
-		 $abc->Nang_Khieu=$attribute->Nang_Khieu;
-		 $abc->Phuc_Vu_Ban_Tru=$attribute->Phuc_Vu_Ban_Tru;
+		$post = $this->model->where('id',$id)->with(['post_detail','lang'=>function ($lang){}])->get();
+		// return $post;
+		// $abc = $this->model->find($id);
+
+		if ($attribute->hasFile('Avartar')) {
+	        $image = $attribute->file('Avatar');
+	        $filename = $attribute->Slug.'-'.time() . '.' . $image->getClientOriginalExtension();
+	        $path = public_path('upload/post/' . $filename);
+	        // Image::make($image->getRealPath())->resize(200, 200)->save($path);
+	        Image::make($image->getRealPath())->save($path);
+	        File::delete(public_path('upload/post/' .$abc->Avatar));
+	        File::delete(public_path('upload/thumbnail/' .$abc->Avatar));
+	        
+	         $abc->Avatar=$filename;
+	    }
+		 $abc->Slug=$attribute->Slug;
+		 $abc->categories_id=$attribute->categories_id;
+		 $abc->color_id=$attribute->color_id;
+		 $abc->Status=$attribute->Status;
 		
-		
-		 
-		 $abc->chinhanh_id=$attribute->chinhanh_id;
-		 $abc->khoi_id=$attribute->khoi_id;
-		 $abc->lop_id=$attribute->lop_id;
+		 $abc->View=0;
+
 		
 
 		 $abc->save();
@@ -180,6 +223,15 @@ class PostRepository implements PostInterface
 	{
 		$del = $this->model->find($id);
 		return$del->destroy($id);
+	}
+
+
+	public function create()
+	{
+
+			$category = $this->category->getAll(null);
+			$color = $this->color->getAll(null);
+	        return view('admin.Post.add')->with('category',$category)->with('color',$color);
 	}
 
 	

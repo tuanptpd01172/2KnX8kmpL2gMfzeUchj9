@@ -14,5 +14,10 @@ class Color extends Model
     {
     		return $this->hasMany('App\Model\Color\Color_Detail','color_id','id');
     }
+
+    public function lang()
+    {
+    		return $this->belongsToMany('App\Model\Lang\Lang','color_detail','color_id','lang_id')->withPivot(['id','Name']);
+    }
 }
 

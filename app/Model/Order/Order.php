@@ -14,5 +14,10 @@ class Order extends Model
     {
     		return $this->hasMany('App\Model\Order\Order_Detail','order_id','id');
     }
+
+    public function lang()
+    {
+    		return $this->belongsToMany('App\Model\Lang\Lang','order_detail','order_id','lang_id')->withPivot(['id','Name']);
+    }
 }
 

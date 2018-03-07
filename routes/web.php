@@ -33,19 +33,65 @@ Route::group(['middleware'=>'locale'],function (){
 	    
 	   
 	});
+	
+	Route::group(['prefix'=>'admin'],function (){
+
+		/**
+		 * Restful post
+		 */
+		Route::resource('/post','Post\PostController');
+		Route::resource('/post_detail','Post\Post_DetailController');
+		/**
+		 * Restful Categories
+		 */
+		Route::resource('/categories','Categories\CategoriesController');
+		Route::resource('/categories_detail','Categories\Categories_DetailController');
+		/**
+		 * Restful Color
+		 */
+		Route::resource('/color','Color\ColorController');
+		Route::resource('/color_detail','Color\Color_DetailController');
+		/**
+		 * Restful post
+		 */
+		Route::resource('/comment','Comment\CommentController');
+		/**
+		 * Restful post
+		 */
+		Route::resource('/customer','Customer\CustomerController');
+		/**
+		 * Restful post
+		 */
+		Route::resource('/lang','Lang\LangController');
+		/**
+		 * Restful post
+		 */
+		Route::resource('/order','Order\OrderController');
+		Route::resource('/order_detail','Order\Order_DetailController');
+
+	
+
+		/*new post*/
+		// Route::get('/posts/add', function () {  return view('admin.Post.add'); })->name('test');
+
+
+
+
+	});
+
+
+	/**
+	 * view 
+	 */
+	/*Post detail */
+	Route::get('/master',function (){
+		return view('admin.master');
+	})->name('post_slug');
+
 	Route::get('/test', function () {
 	    // App::setLocale('en');
 	    return view('admin.test');
 	   
 	})->name('test');
-
-	/**
-	 * Restful post
-	 */
-	Route::resource('/post','Post\PostController');
-
-	/*Post detail */
 	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
-
-
 });

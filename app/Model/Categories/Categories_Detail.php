@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories_Detail extends Model
 {
-    protected $table = 'post_detail';
+    protected $table = 'categories_detail';
     protected $fillablle = ['categories_id','lang_id','Name'];
 
 

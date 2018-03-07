@@ -37,6 +37,12 @@ class PostController extends Controller
             return response()->view('errors.404',$data_,404);
         }
     }
+
+    public function create($slug,Request $data = null)
+    {
+        $result = $this->model->create();
+        return $result;
+    }
     public function Posts(Request $data)
     {
         $result = $this->model->getAll($data);

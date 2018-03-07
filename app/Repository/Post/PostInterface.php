@@ -7,6 +7,7 @@
 	{
 		
 		public function getAll($data);
+		public function create();
 		public function getById($id);
 		public function getBySlug($slug);
 		public function postInsert($attribute);
