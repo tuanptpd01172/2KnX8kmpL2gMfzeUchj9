@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categories extends Model
 {
     protected $table = 'categories';
-    protected $fillablle = ['Image','Slug','Status'];
+    protected $fillablle = ['Image','Slug','Status','parent_id'];
 
 
     public function categories_detail()
@@ -16,7 +16,7 @@ class Categories extends Model
     }
     public function lang()
     {
-    		return $this->belongsToMany('App\Model\Lang\Lang','categories_detail','categories_id','lang_id')->withPivot(['id','Name']);
+    		return $this->belongsToMany('App\Model\Lang\Lang','categories_detail','categories_id','lang_id')->withPivot(['id','Name','Descriptions']);
     }
 }
 

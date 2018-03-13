@@ -2,6 +2,7 @@
 	namespace App\Repository\Post;
 	use App\Model\Post\Post;
 	use App\Model\Post\Post_Detail;
+	use App\Model\Images\Images;
 	use App\Repository\Post\PostInterface;
 	use App\Repository\Post\Post_DetailRepository;
 	use App\Repository\Categories\CategoriesInterface;
@@ -63,52 +64,13 @@ class PostRepository implements PostInterface
 				$result->where('View',$data->View);
 			}
 
-
+			$result->orderBy('id','DESC');
 			$result->get();
 			return $result;
 		}
 		return $this->model->all();
 	}
 
-	// public function getAll_Search($chinhanh_id,$data)
-	// {
-				
-	// 	$result= $this->model->where('chinhanh_id',$chinhanh_id)->with('chinhanh','khoi','lophoc');//->where('chinhanh_id',$chinhanh_id)->where('Active',$active);
-
-
-	// 	// if(isset($khoi_lop_name_id->name) && $khoi_lop_name_id->name!=""){
-	// 	// 	$result->where('name',$khoi_lop_name_id->name);
-			
-	// 	// }
-
-	// 	if(isset($data->Nam) && $data->Nam !=""){
-	// 		$result->where('Nam',$data->Nam);
-			
-	// 	}
-	// 	if(isset($data->id) && $data->id !=""){
-	// 		$result->where('id',$data->id);
-			
-	// 	}
-
-	// 	if(isset($data->Thang) && $data->Thang!=""){
-	// 		$result->where('Thang',$data->Thang);
-			
-	// 	}
-
-	// 	if (isset($data->lop_id) && $data->lop_id!=""){
-	// 		$result->where('lop_id',$data->lop_id);
-			
-	// 	}
-	// 	if (isset($data->khoi_id) && $data->khoi_id!=""){
-	// 		$result->where('khoi_id',$data->khoi_id);
-	// 	}
-		
-
-	// 	return $result->get();
-		
-		
-		
-	// }
 	public function getById($id)
 	{
 		return $this->model->find($id);
@@ -165,6 +127,7 @@ class PostRepository implements PostInterface
 		 $post_vi->post_id = $id;
 		 $post_vi->Title = $attribute->Title_vi;
 		 $post_vi->Price = $attribute->Price_vi;
+		 $post_vi->Price_Sale = $attribute->Price_Sale_vi;
 		 $post_vi->lang_id =1;
 		 $post_vi->Descriptions = $attribute->Description_vi;
 		 $post_vi->save();
@@ -179,14 +142,39 @@ class PostRepository implements PostInterface
 			 $post_en->post_id = $id;
 			 $post_en->Title = $attribute->Title_en;
 			 $post_en->Price = $attribute->Price_en;
+			 $post_en->Price_Sale = $attribute->Price_Sale_en;
 			 $post_en->lang_id =2;
 			 $post_en->Descriptions = $attribute->Description_en;
 			 $post_en->save();
 			 $en = $post_en->id;
 		 }
+		 /****add gallery*******/
+		 $list_img = [];
+		 if ($attribute->hasFile('Images')) {
+	        $image_ = $attribute->file('Images');
+	        $i = 0;
+		 	foreach ($image_ as $img) {
+		        $filename_ = $attribute->Slug.'-'.$i.'-'.time() . '.' . $img->getClientOriginalExtension();
+		        $path = public_path('upload/post/' . $filename_);
+		        $path1 = public_path('upload/thumbnail/' . $filename_);
+		        Image::make($img->getRealPath())->save($path);
+		        
+		        Image::make($img->getRealPath())->resize(200, 200)->save($path1);
+		 		
 
+		 		$img_ = new Images;
+		 		$img_->post_id = $id;
+		 		$img_->url = $filename_;
+		 		$img_->save();
 
-		 return ['post_id'=>$id,'post_detail_vi'=>$vi,'post_detail_en'=>$en];
+		 		$list_img[] = $filename_;
+
+		 		$i++;
+		 	}
+	        
+	    }
+
+		 return ['post_id'=>$id,'post_detail_vi'=>$vi,'post_detail_en'=>$en,'filename_'=>$list_img,'filename1'=>$image_];
 	}
 
 	
@@ -194,13 +182,14 @@ class PostRepository implements PostInterface
 	{
 		$post = $this->model->where('id',$id)->with(['post_detail','lang'=>function ($lang){}])->get();
 		// return $post;
-		// $abc = $this->model->find($id);
+		$abc = $this->model->find($id);
 
-		if ($attribute->hasFile('Avartar')) {
+		if ($attribute->hasFile('Avatar')) {
 	        $image = $attribute->file('Avatar');
 	        $filename = $attribute->Slug.'-'.time() . '.' . $image->getClientOriginalExtension();
 	        $path = public_path('upload/post/' . $filename);
-	        // Image::make($image->getRealPath())->resize(200, 200)->save($path);
+	        $path1 = public_path('upload/thumbnail/' . $filename);
+	        Image::make($image->getRealPath())->resize(200, 200)->save($path1);
 	        Image::make($image->getRealPath())->save($path);
 	        File::delete(public_path('upload/post/' .$abc->Avatar));
 	        File::delete(public_path('upload/thumbnail/' .$abc->Avatar));
@@ -217,12 +206,79 @@ class PostRepository implements PostInterface
 		
 
 		 $abc->save();
+		 //update gallery
+		 //
+		 $gallery = Images::where('post_id',$id)->get();
+		 $list_img = [];
+		 if ($attribute->hasFile('Images')) {
+	        $image_ = $attribute->file('Images');
+	        $i = 0;
+
+		 	foreach ($image_ as $img) {
+		        $filename_ = $attribute->Slug.'-'.$i.'-'.time() . '.' . $img->getClientOriginalExtension();
+		        $path = public_path('upload/post/' . $filename_);
+		        $path1 = public_path('upload/thumbnail/' . $filename_);
+		        Image::make($img->getRealPath())->save($path);
+		        
+		        Image::make($img->getRealPath())->resize(200, 200)->save($path1);
+		 		
+
+		 		$img_ = new Images;
+		 		$img_->post_id = $id;
+		 		$img_->url = $filename_;
+		 		$img_->save();
+
+		 		$list_img[] = $filename_;
+
+		 		$i++;
+		 	}
+	        
+	    }
+		 	$img_pre = Images::where('post_id',$id)->get();
+		 	if(isset($attribute->Images_Pre) && $attribute->Images_Pre != null){
+		 		foreach ($attribute->Images_Pre as $del_img) {
+		 			
+		 			$del_img_ = Images::find($del_img);
+		 			$del_img_->destroy($del_img);
+		 			foreach ($img_pre as $val_img) {
+		 				if($val_img->id == $del_img){
+		 					File::delete(public_path('upload/post/' .$val_img->url));
+	        				File::delete(public_path('upload/thumbnail/' .$val_img->url));
+		 				}
+		 			}
+		 		}
+		 	}
+
+
+	    /***update detail*****/
+	     $post_vi = Post_Detail::find($post[0]->lang[0]->pivot->id);
+		 $post_vi->post_id = $id;
+		 $post_vi->Title = $attribute->Title_vi;
+		 $post_vi->Price = $attribute->Price_vi;
+		 $post_vi->Price_Sale = $attribute->Price_Sale_vi;
+		 $post_vi->lang_id =1;
+		 $post_vi->Descriptions = $attribute->Description_vi;
+		 $post_vi->save();
+		 $vi = $post_vi->id;
+	     $post_en = Post_Detail::find($post[0]->lang[1]->pivot->id);
+		 $post_en->post_id = $id;
+		 $post_en->Title = $attribute->Title_en;
+		 $post_en->Price = $attribute->Price_en;
+		 $post_en->Price_Sale = $attribute->Price_Sale_en;
+		 $post_en->lang_id =2;
+		 $post_en->Descriptions = $attribute->Description_en;
+		 $post_en->save();
+		 $vi = $post_en->id;
+
+		 
+		 // return $img_pre;
+		 
 	}
 
 	public function getDelete($id)
 	{
 		$del = $this->model->find($id);
-		return$del->destroy($id);
+		return $del->destroy($id);
 	}
 
 
@@ -232,6 +288,36 @@ class PostRepository implements PostInterface
 			$category = $this->category->getAll(null);
 			$color = $this->color->getAll(null);
 	        return view('admin.Post.add')->with('category',$category)->with('color',$color);
+	}
+
+
+	public function edit($id,$messsage = null)
+	{		
+			$message = $messsage;
+			$post = $this->model->where('id',$id)->with(['post_detail','lang','color','image'])->get();
+			$category = $this->category->getAll(null);
+			$color = $this->color->getAll(null);
+	        return view('admin.Post.edit',compact(['color', 'category','post','message']));//->with('category',$category)->with('color',$color)->with('post',$post);
+	}
+
+	public function index($data=null)
+	{		
+			
+			$posts = $this->model->with(['post_detail','lang','color','image','categories'=>function ($cate){$cate->with(['categories_detail']);}]);
+			if(isset($data->categories_id) && $data->categories_id != ""){
+				$posts->where('categories_id',$data->categories_id);
+			}
+			if(isset($data->color_id) && $data->color_id != ""){
+				$posts->where('color_id',$data->color_id);
+			}
+			if(isset($data->Status) && $data->Status != ""){
+				$posts->where('Status',$data->Status);
+			}
+			$post =$posts->orderBy('id','DESC')->paginate(10);
+			// return $posts;
+			$category = $this->category->getAll(null);
+			$color = $this->color->getAll(null);
+	        return view('admin.Post.index',compact(['color', 'category','post','message']));//->with('category',$category)->with('color',$color)->with('post',$post);
 	}
 
 	

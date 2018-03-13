@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 use Session;
+use Illuminate\Support\Facades\Input;
+
 /**
 *
 * 
@@ -98,6 +100,44 @@ class Helper
 		 return $hocphi[$id];
 		
 	}
+
+	public static  function gen_cate(array $elements, $parentId = 0,$indent = "",$select_id=null)
+	{
+
+		 
+		 return generateCategoryLists($elements,$parentId,$indent,$select_id);
+		
+	}
+
+	public static  function ss_flash($data =true)
+	{
+		
+		
+
+			if(Session::has('success')){
+				$rs =  '<div class="alert alert-success">'.Session::get('success').'</div>';
+			 return $rs;
+			}
+
+		
+
+			if(Session::has('errors')){
+				if(is_array(Session::has('errors'))){
+					$rs = "";
+					foreach (Session::has('errors') as $value) {
+						
+					$rs +=  '<div class="alert alert-danger">'.$value.'</div>';
+					}
+				}else{
+
+				}
+					$rs =  '<div class="alert alert-danger">'.Session::get('errors').'</div>';
+			 return $rs;
+			}
+
+		
+	}
+
 }
 
 
@@ -211,4 +251,36 @@ function convert_number_to_words($number) {
 			}
 			 
 			return $string;
-			}	
+}	
+
+if (! function_exists('generateCategoryLists')) {
+		    function generateCategoryLists(array $elements, $parentId = 0,$indent = "",$select_id=null) {
+		        
+		        foreach ($elements as $cate) {
+	        	$cate_id = $cate['parent_id'];
+	        	$vi_detail=null;
+				if(isset($cate['lang']) && count($cate['lang']) > 0):
+				 	foreach($cate['lang'] as $detail):
+				 		if($detail['Locale'] == "vi"):
+				 			$vi_detail = $detail;
+				 		
+				 		endif;
+				 	endforeach;
+				endif;
+				if($cate_id == ""){
+					$cate_id = 0;
+				}
+		            if ($cate_id == $parentId) {
+		                if(($select_id != null && $select_id == $cate['id']) || ($cate['id'] == Input::get('categories_id'))){
+
+			                echo '<option selected="selected" value = "'.$cate['id'].'"> '.$indent. $vi_detail['pivot']['Name'] . '</option>';
+		                }else{
+			                	
+			                echo '<option value = "'.$cate['id'].'"> '.$indent. $vi_detail['pivot']['Name'] . '</option>';
+		                }
+		                
+		                $children = generateCategoryLists($elements, $cate['id'],$indent." -- ",$select_id);
+		            }
+		        }
+		    }
+		}

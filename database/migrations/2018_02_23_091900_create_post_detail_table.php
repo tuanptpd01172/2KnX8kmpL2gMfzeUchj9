@@ -27,6 +27,7 @@ class CreatePostDetailTable extends Migration
             $table->string('Descriptions')->nullable();
             $table->string('Avartar')->nullable();
             $table->string('Price')->nullable();
+            $table->string('Price_Sale')->nullable()->default(0);
             // $table->string('Kind')->nullable();
             $table->string('View')->nullable();
             $table->timestamps();

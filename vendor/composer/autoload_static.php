@@ -18,6 +18,7 @@ class ComposerStaticInit5b38fd428991808588da3b7c6e8ea779
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '8fde5feda9697fe0ee53a3938c839fb0' => __DIR__ . '/../..' . '/app/Helpers/Helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -312,6 +313,7 @@ class ComposerStaticInit5b38fd428991808588da3b7c6e8ea779
         'App\\Http\\Controllers\\Comment\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Comment/CommentController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Customer\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Customer/CustomerController.php',
+        'App\\Http\\Controllers\\Images\\ImagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Images/ImagesController.php',
         'App\\Http\\Controllers\\Lang\\LangController' => __DIR__ . '/../..' . '/app/Http/Controllers/Lang/LangController.php',
         'App\\Http\\Controllers\\Order\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Order/OrderController.php',
         'App\\Http\\Controllers\\Order\\Order_DetailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Order/Order_DetailController.php',
@@ -330,6 +332,7 @@ class ComposerStaticInit5b38fd428991808588da3b7c6e8ea779
         'App\\Model\\Color\\Color_Detail' => __DIR__ . '/../..' . '/app/Model/Color/Color_Detail.php',
         'App\\Model\\Comment\\Comment' => __DIR__ . '/../..' . '/app/Model/Comment/Comment.php',
         'App\\Model\\Customer\\Customer' => __DIR__ . '/../..' . '/app/Model/Customer/Customer.php',
+        'App\\Model\\Images\\Images' => __DIR__ . '/../..' . '/app/Model/Images/Images.php',
         'App\\Model\\Lang\\Lang' => __DIR__ . '/../..' . '/app/Model/Lang/Lang.php',
         'App\\Model\\Order\\Order' => __DIR__ . '/../..' . '/app/Model/Order/Order.php',
         'App\\Model\\Order\\Order_Detail' => __DIR__ . '/../..' . '/app/Model/Order/Order_Detail.php',
@@ -352,6 +355,8 @@ class ComposerStaticInit5b38fd428991808588da3b7c6e8ea779
         'App\\Repository\\Comment\\CommentRepository' => __DIR__ . '/../..' . '/app/Repository/Comment/CommentRepository.php',
         'App\\Repository\\Customer\\CustomerInterface' => __DIR__ . '/../..' . '/app/Repository/Customer/CustomerInterface.php',
         'App\\Repository\\Customer\\CustomerRepository' => __DIR__ . '/../..' . '/app/Repository/Customer/CustomerRepository.php',
+        'App\\Repository\\Images\\ImagesInterface' => __DIR__ . '/../..' . '/app/Repository/Images/ImagesInterface.php',
+        'App\\Repository\\Images\\ImagesRepository' => __DIR__ . '/../..' . '/app/Repository/Images/ImagesRepository.php',
         'App\\Repository\\Lang\\LangInterface' => __DIR__ . '/../..' . '/app/Repository/Lang/LangInterface.php',
         'App\\Repository\\Lang\\LangRepository' => __DIR__ . '/../..' . '/app/Repository/Lang/LangRepository.php',
         'App\\Repository\\Order\\OrderInterface' => __DIR__ . '/../..' . '/app/Repository/Order/OrderInterface.php',
@@ -381,6 +386,8 @@ class ComposerStaticInit5b38fd428991808588da3b7c6e8ea779
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePostDetailTable' => __DIR__ . '/../..' . '/database/migrations/2018_02_23_091900_create_post_detail_table.php',
         'CreatePostsTable' => __DIR__ . '/../..' . '/database/migrations/2018_02_23_091801_create_posts_table.php',
+        'CreateSlideDetailTable' => __DIR__ . '/../..' . '/database/migrations/2018_03_10_012427_create_slide_detail_table.php',
+        'CreateSlideTable' => __DIR__ . '/../..' . '/database/migrations/2018_03_10_012356_create_slide_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/CronExpression.php',

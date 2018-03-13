@@ -14,5 +14,9 @@ class Lang extends Model
     // {
     // 		return $this->hasMany('App\Model\Post\Post_Detail','post_id','id');
     // }
+    public function slide()
+    {
+    		return $this->belongsToMany('App\Model\Slide\Slide','slide_detail','lang_id','slide_id');
+    }
 }
 

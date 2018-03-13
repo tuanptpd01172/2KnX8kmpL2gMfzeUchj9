@@ -25,6 +25,12 @@ use App\Repository\Customer\CustomerInterface;
 use App\Repository\Customer\CustomerRepository;
 use App\Repository\Lang\LangInterface;
 use App\Repository\Lang\LangRepository;
+use App\Repository\Images\ImagesInterface;
+use App\Repository\Images\ImagesRepository;
+use App\Repository\Slide\SlideInterface;
+use App\Repository\Slide\SlideRepository;
+use App\Repository\Slide\Slide_DetailInterface;
+use App\Repository\Slide\Slide_DetailRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -56,5 +62,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(CommentInterface::class,CommentRepository::class);
         $this->app->singleton(CustomerInterface::class,CustomerRepository::class);
         $this->app->singleton(LangInterface::class,LangRepository::class);
+        $this->app->singleton(ImagesInterface::class,ImagesRepository::class);
+        $this->app->singleton(SlideInterface::class,SlideRepository::class);
+        $this->app->singleton(Slide_DetailInterface::class,Slide_DetailRepository::class);
     }
 }

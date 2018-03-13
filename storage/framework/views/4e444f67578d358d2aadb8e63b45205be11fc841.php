@@ -23,15 +23,39 @@
                     <li class="active">
                         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li class="active"><a href="index.html">Dashboard v.1</a></li>
-                            <li><a href="dashboard_2.html">Dashboard v.2</a></li>
+                            <!-- <li class="active"><a href="index.html">Dashboard v.1</a></li> -->
+                            <!-- <li><a href="dashboard_2.html">Dashboard v.2</a></li>
                             <li><a href="dashboard_3.html">Dashboard v.3</a></li>
                             <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-                            <li><a href="dashboard_5.html">Dashboard v.5 </a></li>
+                            <li><a href="dashboard_5.html">Dashboard v.5 </a></li> -->
                         </ul>
                     </li>
                     <li>
-                        <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+                        <a href="#"><i class="fa fa-newspaper"></i> <span class="nav-label">Bài Viết</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="<?php echo e(route('post.index')); ?>">Danh Sách Bài Viết</a></li>
+                            <li><a href="<?php echo e(route('post.create')); ?>">Thêm Bài Viết</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list-alt"></i> <span class="nav-label">Danh Mục</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="<?php echo e(route('categories.index')); ?>">Danh Sách Danh Mục</a></li>
+                            <li><a href="<?php echo e(route('categories.create')); ?>">Thêm Danh Mục</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="far fa-images"></i> <span class="nav-label">Quản Lý Slide</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="<?php echo e(route('slide.index')); ?>">Danh Sách Slide</a></li>
+                            <li><a href="<?php echo e(route('slide.create')); ?>">Thêm Slide</a></li>
+                            
+                        </ul>
+                    </li>
+                    <!-- <li>
+                        <a href="layouts.html"><i class="far fa-gem"></i> <span class="nav-label">Layouts</span></a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
@@ -228,7 +252,7 @@
                     </li>
                     <li class="special_link">
                         <a href="package.html"><i class="fa fa-database"></i> <span class="nav-label">Package</span></a>
-                    </li>
+                    </li> -->
                 </ul>
 
             </div>

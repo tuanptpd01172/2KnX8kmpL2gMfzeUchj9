@@ -13,6 +13,8 @@
 		public function putUpdate($attribute,$id);
 		public function updateStatus($id);
 		public function getDelete($id);
+		public function create();
+		public function index($data);
 		
 		
 		

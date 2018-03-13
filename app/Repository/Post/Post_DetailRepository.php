@@ -89,6 +89,7 @@ class Post_DetailRepository implements Post_DetailInterface
 		 $this->model->post_id=$attribute->post_id;
 		 $this->model->lang_id=$attribute->lang_id;
 		 $this->model->Price=$attribute->Price;
+		 $this->model->Price_Sale=$attribute->Price_Sale;
 		 $this->model->Descriptions=$attribute->Descriptions;
 		 $this->model->View=0;
 
@@ -105,6 +106,7 @@ class Post_DetailRepository implements Post_DetailInterface
 		 $abc->post_id=$attribute->post_id;
 		 $abc->lang_id=$attribute->lang_id;
 		 $abc->Price=$attribute->Price;
+		 $abc->Price_Sale=$attribute->Price_Sale;
 		 $abc->Descriptions=$attribute->Descriptions;
 		 $abc->View=0;
 		

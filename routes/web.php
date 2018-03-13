@@ -52,22 +52,31 @@ Route::group(['middleware'=>'locale'],function (){
 		Route::resource('/color','Color\ColorController');
 		Route::resource('/color_detail','Color\Color_DetailController');
 		/**
-		 * Restful post
+		 * Restful comment
 		 */
 		Route::resource('/comment','Comment\CommentController');
 		/**
-		 * Restful post
+		 * Restful customer
 		 */
 		Route::resource('/customer','Customer\CustomerController');
 		/**
-		 * Restful post
+		 * Restful lang
 		 */
 		Route::resource('/lang','Lang\LangController');
 		/**
-		 * Restful post
+		 * Restful images
+		 */
+		Route::resource('/images','Images\ImagesController');
+		/**
+		 * Restful order
 		 */
 		Route::resource('/order','Order\OrderController');
 		Route::resource('/order_detail','Order\Order_DetailController');
+		/**
+		 * Restful slide
+		 */
+		Route::resource('/slide','Slide\SlideController');
+		Route::resource('/slide_detail','Slide\Slide_DetailController');
 
 	
 
@@ -93,5 +102,9 @@ Route::group(['middleware'=>'locale'],function (){
 	    return view('admin.test');
 	   
 	})->name('test');
+	/**
+	 * test request
+	 */
+	Route::post('/requests','Post\PostController@requests')->name('requests');
 	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
-});
+}); 
