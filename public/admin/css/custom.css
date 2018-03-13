@@ -1,0 +1,44 @@
+.row{
+	margin-top:10px;
+
+}
+.img-title{
+	overflow: hidden;
+	/*padding-left: 0;*/
+	padding-right: 0;
+	padding-bottom: 15px;
+
+}
+.img-title label{
+	overflow: hidden;
+	padding-bottom: 5px;
+	/*padding-left: 0;*/
+	/*padding-right: 0;*/
+
+}
+.img-trash{
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 0;
+
+}
+.img-trash label{
+	overflow: hidden;
+	/*padding-left: 0;*/
+	/*padding-right: 0;*/
+
+}
+.img-item{
+	height: 120px;
+}
+.admin-gallery{
+	overflow: auto;
+	max-height: 400px;
+	min-height: 200px;
+	padding:0 0 20px 0;  
+}
+.descriptions_slide{
+	width: 100%;
+	height: 100px !important;
+	resize: none !important;
+}

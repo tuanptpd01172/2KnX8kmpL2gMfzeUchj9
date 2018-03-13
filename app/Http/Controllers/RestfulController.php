@@ -36,7 +36,9 @@ Trait  RestfulController
     }
     public function create()
     {
+         // $result = $this->model->create();
         
+        // return $result;
     }
     public function store(Request $data)
     {
@@ -54,9 +56,9 @@ Trait  RestfulController
         }
         return $result;
     }
-    public function update($id, Request $data)
+    public function update(Request $data , $id)
     {
-         $result =    $this->model->putUpdate($id, $data);
+         $result =    $this->model->putUpdate($data ,$id);
         if(isset($data) && ($data->ajax() || $data->wantsJson())){
             return response()->json($result);
         }

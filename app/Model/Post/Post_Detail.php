@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Post_Detail extends Model
 {
     protected $table = 'post_detail';
-    protected $fillablle = ['post_id','lang_id','color_id','Title','Status','Descriptions','Price','Kind','Price'];
+    protected $fillablle = ['post_id','lang_id','Title','Descriptions','Price','Price_Sale'];
 
 
-    public function post_detail()
+    public function post()
     {
-    		return $this->hasMany('App\Model\QuanLy\HocSinh\HocSinh','hocsinh_id','id');
+    		return $this->belongsTo('App\Model\Post\Post','post_id','id');
     }
 }
 
