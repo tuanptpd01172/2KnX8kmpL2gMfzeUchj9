@@ -9,6 +9,7 @@
 	use App\Repository\Color\ColorInterface;
 	use Illuminate\Http\Request;
 	
+	use App;
 	use Session;
 	use Image;
 	use Helper;
@@ -46,9 +47,15 @@ class PostRepository implements PostInterface
 				$status = $data->Status ;
 			}
 
-			$result =   $this->model->with(['post_detail'=>function (){
+			$result =   $this->model->with([
+				'post_detail'=>function (){
 
-			}])
+				},
+				'lang'=>function ($lang){
+
+				},
+
+			])
 									->where('Status',$status);
 
 			if(isset($data->categories_id) && $data->categories_id != "" ){
@@ -77,9 +84,11 @@ class PostRepository implements PostInterface
 	}
 	public function getBySlug($slug)
 	{
+		$locale =App::getLocale(); 
+		$GLOBALS['locale'] = App::getLocale();
 	    $result =   $this->model->where('Slug',$slug)
-	    						->with(['post_detail'])
-	    						->get();
+	    						->with(['post_detail','lang'=>function ($lang){$lang->where('Locale',$GLOBALS['locale']);},'color'=>function ($color){$color->with(['lang']);}])
+	    						->first();
 		if(count($result) > 0 ){
 			 return $result;
 		}else{
@@ -129,7 +138,8 @@ class PostRepository implements PostInterface
 		 $post_vi->Price = $attribute->Price_vi;
 		 $post_vi->Price_Sale = $attribute->Price_Sale_vi;
 		 $post_vi->lang_id =1;
-		 $post_vi->Descriptions = $attribute->Description_vi;
+		 $post_vi->Short_Descriptions = $attribute->Short_Descriptions_vi;
+		 $post_vi->Descriptions = $attribute->Descriptions_vi;
 		 $post_vi->save();
 		 $vi = $post_vi->id;
 		 /**
@@ -144,7 +154,8 @@ class PostRepository implements PostInterface
 			 $post_en->Price = $attribute->Price_en;
 			 $post_en->Price_Sale = $attribute->Price_Sale_en;
 			 $post_en->lang_id =2;
-			 $post_en->Descriptions = $attribute->Description_en;
+			 $post_en->Short_Descriptions = $attribute->Short_Descriptions_en;
+			 $post_en->Descriptions = $attribute->Descriptions_en;
 			 $post_en->save();
 			 $en = $post_en->id;
 		 }
@@ -172,6 +183,8 @@ class PostRepository implements PostInterface
 		 		$i++;
 		 	}
 	        
+	    }else{
+	    	$image_ = '';
 	    }
 
 		 return ['post_id'=>$id,'post_detail_vi'=>$vi,'post_detail_en'=>$en,'filename_'=>$list_img,'filename1'=>$image_];
@@ -218,8 +231,7 @@ class PostRepository implements PostInterface
 		        $filename_ = $attribute->Slug.'-'.$i.'-'.time() . '.' . $img->getClientOriginalExtension();
 		        $path = public_path('upload/post/' . $filename_);
 		        $path1 = public_path('upload/thumbnail/' . $filename_);
-		        Image::make($img->getRealPath())->save($path);
-		        
+		        Image::make($img->getRealPath())->save($path);		        
 		        Image::make($img->getRealPath())->resize(200, 200)->save($path1);
 		 		
 
@@ -251,27 +263,29 @@ class PostRepository implements PostInterface
 
 
 	    /***update detail*****/
-	     $post_vi = Post_Detail::find($post[0]->lang[0]->pivot->id);
-		 $post_vi->post_id = $id;
-		 $post_vi->Title = $attribute->Title_vi;
-		 $post_vi->Price = $attribute->Price_vi;
-		 $post_vi->Price_Sale = $attribute->Price_Sale_vi;
-		 $post_vi->lang_id =1;
-		 $post_vi->Descriptions = $attribute->Description_vi;
-		 $post_vi->save();
-		 $vi = $post_vi->id;
 	     $post_en = Post_Detail::find($post[0]->lang[1]->pivot->id);
 		 $post_en->post_id = $id;
 		 $post_en->Title = $attribute->Title_en;
 		 $post_en->Price = $attribute->Price_en;
 		 $post_en->Price_Sale = $attribute->Price_Sale_en;
 		 $post_en->lang_id =2;
-		 $post_en->Descriptions = $attribute->Description_en;
+		 $post_en->Short_Descriptions = $attribute->Short_Descriptions_en;
+		 $post_en->Descriptions = $attribute->Descriptions_en;
 		 $post_en->save();
-		 $vi = $post_en->id;
+		 $en = $post_en->id;
+	     $post_vi = Post_Detail::find($post[0]->lang[0]->pivot->id);
+		 $post_vi->post_id = $id;
+		 $post_vi->Title = $attribute->Title_vi;
+		 $post_vi->Price = $attribute->Price_vi;
+		 $post_vi->Price_Sale = $attribute->Price_Sale_vi;
+		 $post_vi->lang_id =1;
+		 $post_vi->Short_Descriptions = $attribute->Short_Descriptions_vi;
+		 $post_vi->Descriptions = $attribute->Descriptions_vi;
+		 $post_vi->save();
+		 $vi = $post_vi->id;
 
 		 
-		 // return $img_pre;
+		 return $attribute->Descriptions_vi;
 		 
 	}
 

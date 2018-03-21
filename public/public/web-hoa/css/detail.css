@@ -1,0 +1,118 @@
+.panel-default-product {
+	border: none;
+	margin-top: 20px;
+}
+.panel-default-product .panel-heading {
+	padding: 0;
+	border: none; 
+}
+.panel-default-product .panel-heading .nav-tabs {
+	border-bottom: solid 2px #ffb262;
+	padding-bottom: 1px;
+}
+.panel-default-product .panel-heading .nav-tabs a {
+	text-transform: uppercase;
+	color: #555;
+	font-weight: bold;
+}
+.panel-default-product .panel-heading .nav-tabs .active a {
+	background: #ffb262;
+	color: #fff;
+}
+.panel-default-product .panel-heading li a {
+	border: none;
+	border-radius: 0;
+	background: #ebebeb;
+	padding: 10px 20px;
+}
+.panel-default-product li {
+	margin-right: 5px;
+}
+.panel-default-product li:focus {
+	outline: none;
+}
+
+.detail-product h1 {
+    color: #ffb262;
+    font-size: 18px;
+    font-weight: 400;
+    border-bottom: 1px solid #CCC;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.detail-product p {
+	margin-bottom: 10px;
+}
+
+.benefit {
+ 	padding: 10px;
+    list-style: none;
+    background-color: #fffcd9;
+    border: 1px solid #d8d297;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    -moz-box-shadow: inset 1px 1px 1px #ffffff;
+    -webkit-box-shadow: inset 1px 1px 1px #ffffff;
+    box-shadow: inset 1px 1px 1px #ffffff;
+    -o-box-shadow: inset 1px 1px 1px #ffffff;
+    color: #f26922;
+ }
+
+.benefit li:before {
+    content: "1";
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    display: inline-block;
+    font-weight: 600;
+    border: 1px solid #f26922;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
+    text-align: center;
+    line-height: 15px;
+    background: #f26922;
+    color: #FFF;
+    font-size: 12px;
+}
+.benefit li:nth-child(2):before {
+    content: "2";
+}
+.benefit li:nth-child(3):before {
+    content: "3";
+}
+.benefit li:nth-child(4):before {
+    content: "4";
+}
+.benefit li:nth-child(5):before {
+    content: "5";
+}
+.benefit li:nth-child(6):before {
+    content: "6";
+}
+.benefit li:nth-child(7):before {
+    content: "7";
+}
+
+.l_item {
+	position: relative;
+}
+
+.l_item .inew {
+    background: transparent url('../images/icon-new.png') no-repeat 0 0;
+    width: 105px;
+    height: 60px;
+    right: -9px;
+    top: -3px;
+}
+
+.ibadge {
+    display: block;
+    text-transform: uppercase;
+    color: #fff;
+    position: absolute;
+}

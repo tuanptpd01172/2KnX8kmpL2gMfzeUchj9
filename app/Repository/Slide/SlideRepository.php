@@ -101,7 +101,7 @@ class SlideRepository implements SlideInterface
 	        $path1 = public_path('upload/thumbnail/' . $filename);
 	        Image::make($image->getRealPath())->save($path);
 	        
-	        Image::make($image->getRealPath())->resize(200, 200)->save($path1);
+	        Image::make($image->getRealPath())->resize(1920, 900)->save($path1);
 	        $this->model->image=$filename;
 	    }
 
@@ -168,7 +168,7 @@ class SlideRepository implements SlideInterface
 	        $filename = $attribute->Slug.'-'.time() . '.' . $image->getClientOriginalExtension();
 	        $path = public_path('upload/slide/' . $filename);
 	        $path1 = public_path('upload/thumbnail/' . $filename);
-	        Image::make($image->getRealPath())->resize(200, 200)->save($path1);
+	        Image::make($image->getRealPath())->resize(1920, 900)->save($path1);
 	        Image::make($image->getRealPath())->save($path);
 	        File::delete(public_path('upload/slide/' .$abc->image));
 	        File::delete(public_path('upload/thumbnail/' .$abc->image));

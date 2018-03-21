@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Categories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repository\Categories\CategoriesInterface;
+use App\Http\Requests\RequestCategory;
 use Session;
 class CategoriesController extends Controller
 {
@@ -68,18 +69,18 @@ class CategoriesController extends Controller
         }
         
     }
-    public function store(Request $data)
+    public function store(RequestCategory $data)
     {
-        try{
+        // try{
 
             $result = $this->model->postInsert($data);
             Session::flash('success','Tạo Danh Mục Thành Công!');
             return redirect()->route('categories.index')->with('id',$result);;
             
-         }catch (\Exception $e){
-            Session::flash('errors','Không Thể Tạo Danh Mục Thành Công! vui lòng thử lại.');
-            return redirect()->route('categories.create');
-        }
+        //  }catch (\Exception $e){
+        //     Session::flash('errors','Không Thể Tạo Danh Mục Thành Công! vui lòng thử lại.');
+        //     return redirect()->route('categories.create');
+        // }
         
     }
     public function update(Request $data,$id)

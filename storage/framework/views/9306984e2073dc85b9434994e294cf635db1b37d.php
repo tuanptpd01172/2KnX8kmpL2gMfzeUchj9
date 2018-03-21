@@ -1,5 +1,5 @@
 <?php $__env->startSection('title'); ?>
-	<?php echo e(__('title.New_Post')); ?>
+	<?php echo e(__('title.List_Post')); ?>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('meta'); ?>

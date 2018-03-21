@@ -16,7 +16,11 @@ class Categories extends Model
     }
     public function lang()
     {
-    		return $this->belongsToMany('App\Model\Lang\Lang','categories_detail','categories_id','lang_id')->withPivot(['id','Name','Descriptions']);
+            return $this->belongsToMany('App\Model\Lang\Lang','categories_detail','categories_id','lang_id')->withPivot(['id','Name','Descriptions']);
+    }
+    public function post()
+    {
+    		return $this->hasMany('App\Model\Post\Post','categories_id','id');
     }
 }
 

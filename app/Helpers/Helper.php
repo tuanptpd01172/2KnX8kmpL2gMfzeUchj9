@@ -1,7 +1,9 @@
 <?php
 namespace App\Helpers;
 use Session;
+use App;
 use Illuminate\Support\Facades\Input;
+use App\Model\Categories\Categories;
 
 /**
 *
@@ -114,6 +116,11 @@ class Helper
 		
 		
 
+			// if(Session::has('message')){
+			// 	$rs =  '<div class="alert alert-warning">'.Session::get('message').'</div>';
+			//  return $rs;
+			// }
+
 			if(Session::has('success')){
 				$rs =  '<div class="alert alert-success">'.Session::get('success').'</div>';
 			 return $rs;
@@ -122,20 +129,67 @@ class Helper
 		
 
 			if(Session::has('errors')){
-				if(is_array(Session::has('errors'))){
-					$rs = "";
-					foreach (Session::has('errors') as $value) {
-						
-					$rs +=  '<div class="alert alert-danger">'.$value.'</div>';
-					}
-				}else{
+				// if(is_array(Session::has('errors'))){
+				// 	$rs = "";
+				// 	foreach (Session::get('errors') as $value) {
+				// 		if(!is_array($value)){
 
-				}
-					$rs =  '<div class="alert alert-danger">'.Session::get('errors').'</div>';
-			 return $rs;
+				// 				$rs +=  '<div class="alert alert-danger">'.$value.'</div>';
+				// 		}else{
+				// 			foreach ($value as $value1) {
+								
+				// 				$rs +=  '<div class="alert alert-danger">'.$value1.'</div>';
+				// 			}
+				// 		}	
+				// 	}
+				// }else{
+
+				// 	$rs = [];
+				// } 
+				
+					// $rs =  '<div class="alert alert-danger">'.Session::get('errors').'</div>';
+					// return Session::has('message');
+			 return Session::get('errors')->all();
 			}
 
 		
+	}
+
+	public static  function nav()
+	{
+		
+		
+		$locale =App::getLocale(); 
+        if(Session::has('locale')){
+
+        $GLOBALS['locale'] = Session::get('locale');
+        }else{
+
+        $GLOBALS['locale'] = App::getLocale();
+        }
+        $cate = Categories::where('Status',1)->with(['lang'=>function ($lang){$lang->get();}])->get();
+        return $cate;
+	}
+
+	public static  function footer()
+	{
+		
+		
+		$locale =App::getLocale(); 
+        if(Session::has('locale')){
+
+        $GLOBALS['locale'] = Session::get('locale');
+        }else{
+
+        $GLOBALS['locale'] = App::getLocale();
+        }
+        $post = Categories::where('Slug','tin-tuc')->with([
+
+			'post'=>function ($post){
+				$post->with(['lang'=>function ($lang){}])->skip(0)->take(4)->orderBy('id','DESC')->get();
+
+		}])->get();
+        return $post;
 	}
 
 }
@@ -284,3 +338,5 @@ if (! function_exists('generateCategoryLists')) {
 		        }
 		    }
 		}
+
+		

@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
-	{{ __('title.New_Post') }}
+	{{ __('title.List_Post') }}
 @endsection
 @section('meta')
 	<!-- meta here -->

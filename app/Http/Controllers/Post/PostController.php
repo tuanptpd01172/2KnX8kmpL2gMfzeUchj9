@@ -27,7 +27,7 @@ class PostController extends Controller
                 
                 return response()->json($result);
             }
-            return $result;
+            return view('flower.detail',compact(['result']));
         }else{
             $data_['name'] = 'Page not found';
             if(isset($data) && ($data->ajax() || $data->wantsJson())){
@@ -68,6 +68,16 @@ class PostController extends Controller
             }
             return response()->view('errors.404',$data_,404);
         }
+    }
+
+    public function store(Request $data)
+    {
+         $result =    $this->model->postInsert($data );
+        if(isset($data) && ($data->ajax() || $data->wantsJson())){
+            return response()->json($result);
+        }
+        $data->session()->flash('message', 'Thêm mới bài viết thành công!');
+        return redirect()->route('post.index');
     }
 
     public function update(Request $data , $id)
