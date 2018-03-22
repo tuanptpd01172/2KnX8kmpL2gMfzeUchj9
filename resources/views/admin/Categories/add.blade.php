@@ -17,6 +17,7 @@
  -->
 	<?php
 		
+	// print_r($errors->all());
 		//echo __('messages.welcome');
 		//
 		// echo "sdfsdf";
@@ -30,7 +31,9 @@
 	 			<div class="ibox-title">Thêm Slide</div>
 	 			<div class="ibox-content">
 	 				
-	 				{!! Helper::ss_flash()!!}
+	 				{!!ss_flash($errors)!!}
+	 				
+	 				
 		 			<form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data" >
 		 				<div class="row">
 			 					{{ csrf_field() }}

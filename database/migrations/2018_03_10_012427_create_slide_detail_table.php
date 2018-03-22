@@ -20,7 +20,7 @@ class CreateSlideDetailTable extends Migration
             $table->integer('lang_id')->unsigned()->nullable();
             $table->foreign('lang_id')->references('id')->on('lang')->onDelete('cascade')->onUpdate('cascade');
             $table->string('Title')->nullable();
-            $table->string('Descriptions')->nullable();
+            $table->text('Descriptions')->nullable();
             $table->string('url')->nullable();
             $table->string('css')->nullable();
             $table->string('Top')->nullable();

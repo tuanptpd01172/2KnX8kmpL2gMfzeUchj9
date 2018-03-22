@@ -24,7 +24,7 @@ class Post extends Model
     }
     public function lang()
     {
-            return $this->belongsToMany('App\Model\Lang\Lang','post_detail','post_id','lang_id')->withPivot(['id','Title','Descriptions','Price','Price_Sale']);
+            return $this->belongsToMany('App\Model\Lang\Lang','post_detail','post_id','lang_id')->withPivot(['id','Title','Descriptions','Price','Price_Sale','Short_Descriptions']);
     }
     public function image()
     {

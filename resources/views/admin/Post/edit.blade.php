@@ -1,6 +1,6 @@
 @extends('admin.master')
 @section('title')
-	{{ __('title.New_Post') }}
+	{{ __('title.Edit_Post') }}
 @endsection
 @section('meta')
 	<!-- meta here -->
@@ -93,8 +93,12 @@
 							 							<label>Giá(Sale) VND</label>
 						                                <input type="text" placeholder="200000VND" class="form-control"  name="Price_Sale_vi" value="{{$vi_detail->pivot->Price_Sale}}">     
 						                            </div>
+													<div class="form-group">
+							 							<label>Mô Tả Ngắn(dành cho bài post tin tức giới thiệu)</label>
+						                                <input type="text" placeholder="Mô tả ngắn..." class="form-control"  name="Short_Descriptions_vi" value="{{$vi_detail->pivot->Short_Descriptions}}">     
+						                            </div>
 					                            	<div class="form-group">
-					                            		<textarea id="descriptions_vi" class="ckeditor" name="Descriptions_vi">{{$vi_detail->pivot->Descritions}}</textarea>
+					                            		<textarea id="descriptions_vi" class="ckeditor" name="Descriptions_vi">{{$vi_detail->pivot->Descriptions}}</textarea>
 
 					                            	</div>
 				                                </div>
@@ -112,6 +116,10 @@
 					                            	<div class="form-group">
 							 							<label>Giá(Sale) $</label>
 						                                <input type="text" placeholder="10$" class="form-control"  name="Price_Sale_en" value="{{$en_detail->pivot->Price_Sale}}">     
+						                            </div>  
+					                            	<div class="form-group">
+							 							<label>Mô Tả Ngắn</label>
+						                                <input type="text" placeholder="Short descriptions..." class="form-control"  name="Short_Descriptions_en" value="{{$en_detail->pivot->Short_Descriptions}}">     
 						                            </div> 
 					                            	<div class="form-group">
 					                            		<textarea id="descriptions_en" class="ckeditor" name="Descriptions_en">{{$en_detail->pivot->Descriptions}}</textarea>

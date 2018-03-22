@@ -30,7 +30,6 @@ Route::group(['middleware'=>'locale'],function (){
 	Route::get('/change-lang/{locale?}', function ($locale) {
 	    Session::put('locale',$locale);
 	    return Redirect::route('test');
-	    
 	   
 	});
 	
@@ -102,9 +101,18 @@ Route::group(['middleware'=>'locale'],function (){
 	    return view('admin.test');
 	   
 	})->name('test');
+
+	/**
+	 * Public view
+	 */
+	Route::get('/','Flower\FlowerController@index')->name('home');
+	Route::get('/','Flower\FlowerController@index')->name('home');
+	
+	
 	/**
 	 * test request
 	 */
 	Route::post('/requests','Post\PostController@requests')->name('requests');
+	Route::get('/san-pham/{slug?}/','Post\PostController@getBySlug_FL')->name('flower_slug');
 	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
 }); 

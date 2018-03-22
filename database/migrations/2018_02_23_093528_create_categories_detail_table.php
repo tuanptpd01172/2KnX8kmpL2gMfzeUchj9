@@ -20,7 +20,7 @@ class CreateCategoriesDetailTable extends Migration
             $table->integer('lang_id')->unsigned();
             $table->foreign('lang_id')->references('id')->on('lang')->onDelete('cascade')->onUpdate('cascade');
             $table->string('Name')->nullable();
-            $table->string('Descriptions')->nullable();
+            $table->text('Descriptions')->nullable();
 
             $table->timestamps();
         });

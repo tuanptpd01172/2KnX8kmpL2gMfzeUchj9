@@ -70,6 +70,14 @@
 							 							<label>Giá VND</label>
 						                                <input type="text" placeholder="200000VND" class="form-control"  name="Price_vi">     
 						                            </div>
+						                            <div class="form-group">
+							 							<label>Giá(Sale) VND</label>
+						                                <input type="text" placeholder="200000VND" class="form-control"  name="Price_Sale_vi" ">     
+						                            </div>
+						                            <div class="form-group">
+							 							<label>Mô Tả Ngắn(dành cho bài post tin tức giới thiệu)</label>
+						                                <input type="text" placeholder="Mô tả ngắn..." class="form-control"  name="Short_Descriptions_vi" >     
+						                            </div>
 					                            	<div class="form-group">
 					                            		<textarea id="descriptions_vi" class="ckeditor" name="Descriptions_vi"></textarea>
 
@@ -85,6 +93,15 @@
 					                            	<div class="form-group">
 							 							<label>Giá $</label>
 						                                <input type="text" placeholder="10$" class="form-control"  name="Price_en">     
+						                            </div>
+						                            <div class="form-group">
+							 							<label>Giá(Sale) $</label>
+						                                <input type="text" placeholder="10$" class="form-control"  name="Price_Sale_en" >     
+						                            </div>  
+
+						                            <div class="form-group">
+							 							<label>Mô Tả Ngắn</label>
+						                                <input type="text" placeholder="Short descriptions..." class="form-control"  name="Short_Descriptions_en" >     
 						                            </div> 
 					                            	<div class="form-group">
 					                            		<textarea id="descriptions_en" class="ckeditor" name="Descriptions_en"></textarea>

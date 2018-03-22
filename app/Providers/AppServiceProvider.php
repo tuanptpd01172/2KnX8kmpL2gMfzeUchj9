@@ -31,7 +31,13 @@ use App\Repository\Slide\SlideInterface;
 use App\Repository\Slide\SlideRepository;
 use App\Repository\Slide\Slide_DetailInterface;
 use App\Repository\Slide\Slide_DetailRepository;
-
+use App\Repository\Flower\FlowerInterface;
+use App\Repository\Flower\FlowerRepository;
+use App\Model\Categories\Categories;
+use Session;
+use App;
+use View;
+use App\Helpers\Helper;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -41,7 +47,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+       $cate = Helper::nav();  
+       $post_ft = Helper::footer();  
+       View::share('cate',$cate);
+       View::share('post_ft',$post_ft);
     }
 
     /**
@@ -65,5 +74,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ImagesInterface::class,ImagesRepository::class);
         $this->app->singleton(SlideInterface::class,SlideRepository::class);
         $this->app->singleton(Slide_DetailInterface::class,Slide_DetailRepository::class);
+        $this->app->singleton(FlowerInterface::class,FlowerRepository::class);
     }
 }

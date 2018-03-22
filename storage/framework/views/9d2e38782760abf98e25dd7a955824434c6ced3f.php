@@ -17,8 +17,8 @@
  -->
 	<?php
 		use Illuminate\Support\Facades\Input;
-		if (! function_exists('generateCategoryLists')) {
-		    function generateCategoryLists(array $elements, $parentId = 0,$indent = "",$stt=1,$flag = true) {
+		if (! function_exists('generateCategoryLists_')) {
+		    function generateCategoryLists_(array $elements, $parentId = 0,$indent = "",$stt=1,$flag = true) {
 		        
 		        foreach ($elements as $cate) {
 		        	$cate_id = $cate['parent_id'];
@@ -72,7 +72,7 @@
 		                if($flag == true){
 		                	$indent = "|";
 		                }
-		                $children = generateCategoryLists($elements, $cate['id'],$indent."-",$stt,false);
+		                $children = generateCategoryLists_($elements, $cate['id'],$indent."-",$stt,false);
 		               	$stt++;
 		            }
 		        }
@@ -94,8 +94,7 @@
 					
 							<?php echo Helper::ss_flash(""); ?>
 
-							<?php echo Helper::ss_flash("errors"); ?>
-
+							
 		 			
 
 			 			<table class="table table-bordered">
@@ -111,7 +110,7 @@
 			 					<th>3</th> -->
 			 				</thead>
 			 				<tbody>
-			 					<?php echo e(generateCategoryLists($category->toArray(),0)); ?>
+			 					<?php echo e(generateCategoryLists_($category->toArray(),0)); ?>
 
 			 				</tbody>
 			 			</table>
