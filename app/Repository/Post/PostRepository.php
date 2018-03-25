@@ -52,13 +52,15 @@ class PostRepository implements PostInterface
 
 				},
 				'lang'=>function ($lang){
-
+					
+					$lang->where('Locale',$GLOBALS['locale']);
 				},
+				'image',
+				
 
-			])
-									->where('Status',$status);
+			])->where('Status',$status);
 
-			if(isset($data->categories_id) && $data->categories_id != "" ){
+			if(isset($data->categories_id) && $data->categories_id != null ){
 				$result->where('categories_id',$data->categories_id);
 			}
 			
@@ -71,13 +73,18 @@ class PostRepository implements PostInterface
 				$result->where('View',$data->View);
 			}
 
+
+			if(isset($data->limit) && $data->limit != "" ){
+				$result->limit($data->limit);
+			}
 			$result->orderBy('id','DESC');
-			$result->get();
-			return $result;
+			// $result->get();
+			return $result->get();
+			// return [];
 		}
 		return $this->model->all();
 	}
-
+	
 	public function getById($id)
 	{
 		return $this->model->find($id);
@@ -86,6 +93,7 @@ class PostRepository implements PostInterface
 	{
 		$locale =App::getLocale(); 
 		$GLOBALS['locale'] = App::getLocale();
+
 	    $result =   $this->model->where('Slug',$slug)
 	    						->with(['post_detail','lang'=>function ($lang){$lang->where('Locale',$GLOBALS['locale']);},'color'=>function ($color){$color->with(['lang']);}])
 	    						->first();

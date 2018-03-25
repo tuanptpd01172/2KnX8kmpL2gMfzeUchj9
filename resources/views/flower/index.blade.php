@@ -229,13 +229,17 @@
 						@if($i == 2 || $i == 3)
 							
 							<div class="col-md-6 w3l-special-grid {{$clss}}" >
-								<div class="col-md-6 agileits-special-info">
-								</div>
+								
+									<div class="col-md-6 agileits-special-info">
+									</div>
+								
+									
 								<div class="col-md-6 agileits-special-info info-cs">
-									<h4>{{$item_special_->lang[0]->pivot->Title}}</h4>
+									<h4><a href="{{route('post_slug',$item_special_->Slug)}}">{{$item_special_->lang[0]->pivot->Title}}</a></h4>
 									<p>{!!$item_special_->lang[0]->pivot->Short_Descriptions!!}</p>
 								</div>
 								<div class="col-md-6 w3ls-special-img" style="background-image: url('{{asset('/public/upload/post/'.$item_special_->Avatar)}}'); ">
+								<a href="{{url('/').'/'.$item_special_->Slug}}"> <img src="{{asset('/public/upload/post/'.$item_special_->Avatar)}}" alt="{{$item_special_->lang[0]->pivot->Title}}" width="100%" height="100%"></a>
 									
 								</div>
 								<div class="clearfix"> </div>
@@ -243,10 +247,10 @@
 						@else 
 							<div class="col-md-6 w3l-special-grid {{$clss}}">
 								<div class="col-md-6 w3ls-special-img" style="background-image: url('{{asset('/public/upload/post/'.$item_special_->Avatar)}}'); ">
-									
+									<a href=" {{url('/').'/'.$item_special_->Slug}}"> <img src="{{asset('/public/upload/post/'.$item_special_->Avatar)}}" alt="{{$item_special_->lang[0]->pivot->Title}}" width="100%" height="100%"></a>
 								</div>
 								<div class="col-md-6 agileits-special-info">
-									<h4>{{$item_special_->lang[0]->pivot->Title}}</h4>
+									<h4><a href="{{url('/').'/'.$item_special_->Slug}}">{{$item_special_->lang[0]->pivot->Title}}</a></h4>
 									<p>{!!$item_special_->lang[0]->pivot->Short_Descriptions!!}</p>
 								</div>
 								<div class="clearfix"> </div>

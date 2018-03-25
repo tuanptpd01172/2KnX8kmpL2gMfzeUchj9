@@ -13,7 +13,7 @@
 <!-- projects -->
 <?php
 	echo '<pre>';
-	// print_r($result);
+	print_r($diff_post->toArray());
 	echo '</pre>';
 	?>
 	
@@ -122,27 +122,35 @@
 							<h2>NHỮNG MẪU HOA TƯƠI CÙNG LOẠI KHÁC</h2>
 							<div class="show-reel tel-prj">
 								<div class="row">
+									@if(isset($diff_post) && count($diff_post) > 0)
+										@foreach($diff_post as $diff)
 									<div class="col-md-4 agile-gallery-grid">
 										<div class="agile-gallery">
 											<a href="images/s1.jpg" class="lsb-preview" data-lsb-group="header">
-												<img src="/public/flower/images/s1.jpg" alt="" />
+												<img src="{{asset('/public/upload/post').'/'.$diff->Avatar}}" alt="" />
 												<div class="agileits-caption">
-													<h4>Upholstery</h4>
-													<p>Sed ultricies non sem sit amet laoreet. Ut semper erat erat.</p>
+													<!-- <h4></h4> -->
+													<p>{{$diff->lang[0]->pivot->Short_Descriptions}}</p>
 												</div>
 											</a>
 										</div>
 										<div class="agile-gallery-dt">
 											<div class="title-flower">
-												<a href="detail.php">Ngày Vàng Tươi</a>
+												<a href="detail.php">{{$diff->lang[0]->pivot->Title}}</a>
 											</div>
 											<div class="price">
-												<span class="oprice">700.000 đ</span>
-												<span>650.000 đ</span>
+											@if(isset($diff->lang[0]->pivot->Price_Sale) && $diff->lang[0]->pivot->Price_Sale != "")
+												<span class="oprice">{{$diff->lang[0]->pivot->Price}}</span>
+												<span>{{$diff->lang[0]->pivot->Price_Sale}}đ</span>
+											@else
+												<span>{{$diff->lang[0]->pivot->Price}}đ</span>
+											@endif	
 											</div>
 										</div>
 									</div>
-									<div class="col-md-4 agile-gallery-grid">
+										@endforeach
+									@endif
+									<!-- <div class="col-md-4 agile-gallery-grid">
 										<div class="agile-gallery">
 											<a href="images/s2.jpg" class="lsb-preview" data-lsb-group="header">
 												<img src="/public/flower/images/s2.jpg" alt="" />
@@ -181,7 +189,7 @@
 												<span>650.000 đ</span>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="clearfix"> </div>
 									
 								</div>

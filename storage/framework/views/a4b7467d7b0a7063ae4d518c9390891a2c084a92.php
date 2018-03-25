@@ -228,13 +228,17 @@
 						<?php if($i == 2 || $i == 3): ?>
 							
 							<div class="col-md-6 w3l-special-grid <?php echo e($clss); ?>" >
-								<div class="col-md-6 agileits-special-info">
-								</div>
+								
+									<div class="col-md-6 agileits-special-info">
+									</div>
+								
+									
 								<div class="col-md-6 agileits-special-info info-cs">
-									<h4><?php echo e($item_special_->lang[0]->pivot->Title); ?></h4>
+									<h4><a href="<?php echo e(route('post_slug',$item_special_->Slug)); ?>"><?php echo e($item_special_->lang[0]->pivot->Title); ?></a></h4>
 									<p><?php echo $item_special_->lang[0]->pivot->Short_Descriptions; ?></p>
 								</div>
 								<div class="col-md-6 w3ls-special-img" style="background-image: url('<?php echo e(asset('/public/upload/post/'.$item_special_->Avatar)); ?>'); ">
+								<a href="<?php echo e(url('/').'/'.$item_special_->Slug); ?>"> <img src="<?php echo e(asset('/public/upload/post/'.$item_special_->Avatar)); ?>" alt="<?php echo e($item_special_->lang[0]->pivot->Title); ?>" width="100%" height="100%"></a>
 									
 								</div>
 								<div class="clearfix"> </div>
@@ -242,10 +246,10 @@
 						<?php else: ?> 
 							<div class="col-md-6 w3l-special-grid <?php echo e($clss); ?>">
 								<div class="col-md-6 w3ls-special-img" style="background-image: url('<?php echo e(asset('/public/upload/post/'.$item_special_->Avatar)); ?>'); ">
-									
+									<a href=" <?php echo e(url('/').'/'.$item_special_->Slug); ?>"> <img src="<?php echo e(asset('/public/upload/post/'.$item_special_->Avatar)); ?>" alt="<?php echo e($item_special_->lang[0]->pivot->Title); ?>" width="100%" height="100%"></a>
 								</div>
 								<div class="col-md-6 agileits-special-info">
-									<h4><?php echo e($item_special_->lang[0]->pivot->Title); ?></h4>
+									<h4><a href="<?php echo e(url('/').'/'.$item_special_->Slug); ?>"><?php echo e($item_special_->lang[0]->pivot->Title); ?></a></h4>
 									<p><?php echo $item_special_->lang[0]->pivot->Short_Descriptions; ?></p>
 								</div>
 								<div class="clearfix"> </div>
