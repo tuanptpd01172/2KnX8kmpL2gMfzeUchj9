@@ -38,7 +38,7 @@ class FlowerRepository implements FlowerInterface
 		$GLOBALS['locale'] = App::getLocale();
 		// $cate = $this->category->where('Status',1)->with(['lang'=>function ($lang){$lang->where('Locale',$GLOBALS['locale'])->get();}])->get();
 		$post = $this->post->where('Status',1)->with(['lang'=>function ($lang){$lang->where('Locale',$GLOBALS['locale'])->orderBy('id','DESC')->get();}])->orderBy('id','DESC')->get();
-		$special_post = $this->category->where('Slug','hoa')->orWhere('Slug','tiec-cuoi')->with([
+		$special_post = $this->category->where('Slug','tiec-cuoi')->with([
 
 			'post'=>function ($post){
 				$post->with(['lang'=>function ($lang){

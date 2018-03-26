@@ -113,6 +113,7 @@ Route::group(['middleware'=>'locale'],function (){
 	 * test request
 	 */
 	Route::post('/requests','Post\PostController@requests')->name('requests');
+	Route::get('/san-pham','Post\PostController@flower_list')->name('flower_list');
 	Route::get('/san-pham/{slug?}/','Post\PostController@getBySlug_FL')->name('flower_slug');
 	Route::get('/{slug?}','Post\PostController@getBySlug')->name('post_slug');
 }); 
